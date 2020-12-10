@@ -10,22 +10,22 @@ bookRouter.get('/', (req,res) => {
         if(err) throw err;
         else {
             console.log('successful query');
-            console.log(rows);
+            // console.log(rows);
             res.send(rows);
         }
     })
 })
 
-// bookRouter.put('/', (req,res) => {
-//     db.query("DELETE * FROM BOOK WHERE", (err, rows, fields)=>{
-//         if(err) throw err;
-//         else {
-//             console.log('successful query');
-//             console.log(rows);
-//             res.send(rows);
-//         }
-//     })
-// })
+bookRouter.put('/', (req,res) => {
+    db.query("DELETE * FROM BOOK WHERE", (err, rows, fields)=>{
+        if(err) throw err;
+        else {
+            console.log('successful query');
+            // console.log(rows);
+            res.send(rows);
+        }
+    })
+})
 
 
 module.exports= bookRouter;

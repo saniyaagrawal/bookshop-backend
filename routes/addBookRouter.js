@@ -15,4 +15,14 @@ addBookRouter.post('/', (req,res) => {
     })
 })
 
+addBookRouter.post('/:bookId', (req,res) => {
+    db.query("SELECT * FROM BOOK", (err, rows, fields)=>{
+        if(err) throw err;
+        else {
+            console.log('successful query');
+            res.send(rows);
+        }
+    })
+})
+
 module.exports= addBookRouter;
