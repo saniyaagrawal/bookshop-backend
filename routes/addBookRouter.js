@@ -6,17 +6,7 @@ const addBookRouter=express.Router();
 addBookRouter.use(bodyParser.json());
 
 addBookRouter.post('/', (req,res) => {
-    db.query("SELECT * FROM BOOK", (err, rows, fields)=>{
-        if(err) throw err;
-        else {
-            console.log('successful query');
-            res.send(rows);
-        }
-    })
-})
-
-addBookRouter.post('/:bookId', (req,res) => {
-    db.query("SELECT * FROM BOOK", (err, rows, fields)=>{
+    db.query("INSERT INTO Book name VALUES (?)",[req.body.name], (err, rows, fields)=>{
         if(err) throw err;
         else {
             console.log('successful query');

@@ -6,7 +6,7 @@ const signupRouter=express.Router();
 signupRouter.use(bodyParser.json());
 
 signupRouter.post('/', (req,res) => {
-    db.query("SELECT * FROM BOOK", (err, rows, fields)=>{
+    db.query("INSERT INTO Shopkeeper (name, email, password) VALUES (?,?,?)",[req.body.name, req.body.email, req.body.password], (err, rows)=>{
         if(err) throw err;
         else {
             console.log('successful query');

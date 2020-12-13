@@ -1,6 +1,12 @@
 const express= require('express');
 const bodyParser =  require('body-parser');
 
+var authenticate = require('./authenticate');
+var config = require('./config');
+const url = config.mongoUrl;
+
+const loginRouter=require('./routes/loginRouter');
+const signupRouter=require('./routes/signupRouter');
 const bookRouter=require('./routes/bookRouter');
 const addBookRouter=require('./routes/addBookRouter');
 const billRouter=require('./routes/billRouter');
@@ -34,14 +40,14 @@ app.use(bodyParser.json());
 
 // app.use(auth);
 
-app.use(express.static(path.join(_dirname, 'public')));
+// app.use(express.static(path.join(_dirname, 'public')));
 
 app.use('/', bookRouter);
-app.use('/login', bookRouter);
-app.use('/signup', bookRouter);
+app.use('/login', loginRouter);
+app.use('/signup', signupRouter);
 app.use('/add', addBookRouter );
 app.use('/bill', billRouter );
 
-app.listen(3000, ()=>{
+app.listen(1443, ()=>{
     console.log('Server running at localhost:3000');
 });
