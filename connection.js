@@ -5,7 +5,7 @@ const db=mysql.createConnection({
     password : 'password',
     insecureAuth: true,
     database : 'bookshop',
-    // multipleStatements: true
+    multipleStatements: true
 });
 
 db.connect((err) =>{

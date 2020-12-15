@@ -15,5 +15,13 @@ bookRouter.get('/', (req,res) => {
         }
     })
 })
+bookRouter.get('/:id', (req,res) => {
+    db.query("SELECT * FROM BOOK where (book_id)=(?)",[req.params.id], (err, rows, fields)=>{
+        if(err) throw err;
+        else {
+            res.send(rows);
+        }
+    })
+})
 
 module.exports= bookRouter;
