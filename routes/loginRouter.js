@@ -7,13 +7,18 @@ const passport = require('passport');
 const loginRouter=express.Router();
 loginRouter.use(bodyParser.json());
 
-loginRouter.get('/', (req,res) => {
-    db.query("SELECT email, password from Shopkeeper where (email, password) =(?,?)",[req.body.email, req.body.password], (err, rows)=>{
+loginRouter.post('/', (req,res) => {
+    db.query("SELECT * from Shopkeeper where (email, password) =(?,?)",[req.body.email, req.body.password], (err, rows)=>{
         if(err) throw err;
+        else if(!rows[0]){
+            res.statusCode=401;
+            res.send('Invalid login');
+        }
         else {
-            console.log('successful query');
-            // console.log(rows);
-            res.send(rows);
+            db.query("SELECT * from owns where (shopkeeper_id) =(?)",[rows[0].shopkeeper_id], (err, row)=>{
+                if(err) throw err;
+                res.send(row);
+            })
         }
     })
 })

@@ -10,7 +10,6 @@ bookRouter.get('/', (req,res) => {
         if(err) throw err;
         else {
             console.log('successful query');
-            // console.log(rows);
             res.send(rows);
         }
     })
