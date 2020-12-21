@@ -25,14 +25,15 @@ billRouter.post('/', (req,res) => {
                             // change for qunatity in book table
                             for(let i of req.body.books){
                                 // console.log(i);
-                                db.query("INSERT INTO book_bought(bill_id, book_id, quantity) VALUES (?,?,?)",
-                                [bill_id, i.book_id, i.quantity]  , (err, row5, fields)=>{
-                                    if(err) throw err;
-                                    db.query("UPDATE book SET quantityPurchase =(quantityPurchase-?) where (book_id)=(?)",[i.quantity,i.book_id], (err, row6, fields)=>{
+                                if(i.book_id!=null && i.quantity!=null){
+                                    db.query("INSERT INTO book_bought(bill_id, book_id, quantity) VALUES (?,?,?)", [bill_id, i.book_id, i.quantity]  , (err, row5, fields)=>{
                                         if(err) throw err;
-                                        else res.send(row6);
+                                        db.query("UPDATE book SET quantityPurchase =(quantityPurchase-?) where (book_id)=(?)",[i.quantity,i.book_id], (err, row6, fields)=>{
+                                            if(err) throw err;
+                                            else res.send(row6);
+                                        })
                                     })
-                                })
+                                }
                             }
                         })
                     })
